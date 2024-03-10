@@ -27,3 +27,5 @@
 1.[Bekir Sami GÜLEÇ'in Gereksinimleri](BSGgereksinimler.md)
 
 2.[Mehmet Emin CENGİZ'in Gereksinimleri](MECGEREKSİNİMLER.md)
+
+3.[Sinan ATASEVEN'in Gereksinimleri](SAgereksinimler.md)
