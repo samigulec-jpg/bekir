@@ -1,1 +1,1 @@
-# Sinan ATASEVEN Gereksinim
+# Sinan ATASEVEN Gereksinimler
