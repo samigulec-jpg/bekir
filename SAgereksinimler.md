@@ -1,0 +1,1 @@
+# SİNAN ATASEVEN'in Gereksinimleri
