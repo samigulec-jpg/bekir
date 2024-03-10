@@ -25,3 +25,5 @@
 **Gereksinim Dağılımları**
 
 1.[Bekir Sami GÜLEÇ'in Gereksinimleri](BSGgereksinimler.md)
+
+2.[Mehmet Emin CENGİZ'in Gereksinimleri](MECGEREKSİNİMLER.md)
