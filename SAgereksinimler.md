@@ -1,1 +1,1 @@
-# SİNAN ATASEVEN'in Gereksinimleri
+# SİNAN ATASEVEN GEREKSİNİMLER
