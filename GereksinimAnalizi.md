@@ -17,10 +17,11 @@
 14. Arama Yapma (Mehmet Emin CENGİZ)
 15. Kategori Ekleme (Sinan ATASEVEN)
 16. Kategori Silme (Sinan ATASEVEN)
-17. Kategori Güncelleme (Sinan ATASEVEN)
-18. Bugün Ne Oldu ? (Sinan ATASEVEN)
-19. Yorum Yapma (Sinan ATASEVEN)
-20. Yorum Silme (Sinan ATASEVEN)
+17. Kategori Listeleme (Sinan ATASEVEN)
+18. Kategori Güncelleme (Sinan ATASEVEN)
+19. Bugün Ne Oldu ? (Sinan ATASEVEN)
+20. Yorum Yapma (Sinan ATASEVEN)
+21. Yorum Silme (Sinan ATASEVEN)
 
 **Gereksinim Dağılımları**
 
