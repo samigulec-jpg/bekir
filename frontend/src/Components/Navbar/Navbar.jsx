@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Navbar.css'
 import logo from '../Assets/logo.png'
+import { Link } from 'react-router-dom';
+
+
 const Navbar = () => {
+    const [menu,setMenu] = useState("home");
+
+    
   return (
     <div className='navbar'>
         <div className='nav-logo'>
@@ -9,20 +15,25 @@ const Navbar = () => {
             <p>BesNews</p>
         </div>
         <ul className='nav-menu'>
-            <li>Home <hr/></li>
-            <br/>
-            <li>Siyaset <hr/></li>
-            <br/>
-            <li>Spor <hr/></li>
-            <br/>
-            <li>Hayat <hr/></li>
+        <li onClick={() => setMenu("home")}>
+                    <Link to="/">Home {menu === "home" && <hr />}</Link>
+                </li>
+                <li onClick={() => setMenu("siyaset")}>
+                    <Link to="/siyaset">Siyaset {menu === "siyaset" && <hr />}</Link>
+                </li>
+                <li onClick={() => setMenu("spor")}>
+                    <Link to="/spor">Spor {menu === "spor" && <hr />}</Link>
+                </li>
+                <li onClick={() => setMenu("hayat")}>
+                    <Link to="/hayat">Hayat {menu === "hayat" && <hr />}</Link>
+                </li>
         </ul>
         <div className='nav-login'>
-            <button>Login</button>
+        <button><Link to="/login">Login</Link></button>
         </div>
 
         <div className='nav-register'>
-            <button>Register</button>
+        <button><Link to="/signup">Register</Link></button>
         </div>
         
       

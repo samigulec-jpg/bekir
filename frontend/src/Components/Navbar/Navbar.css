@@ -1,21 +1,32 @@
+
+.nav-menu a, .nav-login a, .nav-register a {
+    text-decoration: none;
+}
+
+.nav-login button:hover, .nav-register button:hover {
+    background-color: lightgrey; /* You can use any shade of grey you prefer */
+}
+
+
 .navbar{
     display: flex;
-    justify-content:space-around;
-    padding: 16px;
+    justify-content: space-around;
+    padding: 5px;
     box-shadow: 0 1px 3px -2px black;
-
-
 }
+
 .nav-logo{
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
 .nav-logo p{
     color: #171717;
-    font-size:38px;
+    font-size: 38px;
     font-weight: 600;
 }
+
 .nav-menu{
     display: flex;
     align-items: center;
@@ -24,8 +35,8 @@
     color: #626262;
     font-size: 20px;
     margin-left: 200px;
-
 }
+
 .nav-menu li{
     display: flex;
     flex-direction: column;
@@ -34,6 +45,7 @@
     gap: 3px;
     cursor: pointer;
 }
+
 .nav-menu hr{
     border: none;
     width: 80%;
@@ -41,12 +53,14 @@
     border-radius: 10px;
     background: #FF4141;
 }
+
 .nav-login{
     display: flex;
     align-items: center;
     gap: 90px;
     margin-left: 200px;
 }
+
 .nav-login button{
     width: 130px;
     height: 45px;
@@ -59,6 +73,7 @@
     background: white;
     cursor: pointer;
 }
+
 .nav-login button:active{
     background: #f3f3f3;
 }
@@ -68,6 +83,7 @@
     align-items: center;
     gap: 45px;
 }
+
 .nav-register button{
     width: 130px;
     height: 45px;
@@ -80,6 +96,7 @@
     background: white;
     cursor: pointer;
 }
+
 .nav-register button:active{
     background: #f3f3f3;
 }
