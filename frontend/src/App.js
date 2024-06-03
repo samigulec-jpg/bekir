@@ -11,6 +11,14 @@ import SearchResults from './Pages/SearchResults/SearchResults';
 import NewsDetail from './Pages/NewsDetail/NewsDetail';
 import UserProfile from './Pages/UserProfile/UserProfile';
 import Favorites from './Pages/Favorites/Favorites'; // Favoriler sayfasını ekleyin
+import AdminPage from './Components/Admin/AdminPage';
+
+import AddNewsPage from './Components/Admin/AddNewsPage';
+import NewsListPage from './Components/Admin/NewsListPage';
+import DeleteNewsPage from './Components/Admin/DeleteNewsPage';
+import UpdateNewsPage from './Components/Admin/UpdateNewsPage';
+import UpdateNewsForm from './Components/Admin/UpdateNewsForm';
+
 
 function App() {
   const [searchData, setSearchData] = useState([]);
@@ -29,6 +37,7 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home setSearchData={setSearchData} />} />
+        <Route path="/admin" element={<AdminPage />} /> {/* Admin sayfası rotası */}
         <Route path="/siyaset" element={<Siyaset />} />
         <Route path="/spor" element={<Spor />} />
         <Route path="/hayat" element={<Hayat />} />
@@ -38,6 +47,12 @@ function App() {
         <Route path="/news/:id" element={<NewsDetail searchData={searchData} isLoggedIn={isLoggedIn} username={username} setFavorites={setFavorites} favorites={favorites} />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/favorites" element={<Favorites favorites={favorites} />} /> {/* Favoriler rotası */}
+        <Route path="/admin" element={<AdminPage />} />
+                <Route path="/add-news" element={<AddNewsPage />} />
+        <Route path="/news-list" element={<NewsListPage />} />
+        <Route path="/delete-news" element={<DeleteNewsPage />} />
+        <Route path="/update-news" element={<UpdateNewsPage />} />
+        <Route path="/update-news/:id" element={<UpdateNewsForm />} />
       </Routes>
     </Router>
   );

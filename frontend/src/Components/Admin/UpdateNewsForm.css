@@ -1,0 +1,49 @@
+.update-news-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.update-news-form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.update-news-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-news-form-container label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.update-news-form-container input[type="text"],
+.update-news-form-container input[type="file"],
+.update-news-form-container textarea,
+.update-news-form-container select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.update-news-form-container button {
+    padding: 10px;
+    background-color: #f03709;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.update-news-form-container button:hover {
+    background-color: #681407;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import logo from '../Assets/logo.png';
 import userIcon from '../Assets/user.png';
@@ -7,7 +7,17 @@ import { Link, useNavigate } from 'react-router-dom';
 const Navbar = ({ setSearchData, isLoggedIn, setIsLoggedIn, username, favorites }) => {
     const [menu, setMenu] = useState("home");
     const [searchQuery, setSearchQuery] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Kullanıcı adını kontrol et ve admin ise isAdmin state'ini true olarak ayarla
+        if (username === "admin") {
+            setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
+        }
+    }, [username]);
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
@@ -36,6 +46,11 @@ const Navbar = ({ setSearchData, isLoggedIn, setIsLoggedIn, username, favorites 
                 <p>BesNews</p>
             </div>
             <ul className='nav-menu'>
+                {isAdmin && (
+                    <li onClick={() => setMenu("admin")}>
+                        <Link to="/admin">Admin {menu === "admin" && <hr />}</Link>
+                    </li>
+                )}
                 <li onClick={() => setMenu("home")}>
                     <Link to="/">Home {menu === "home" && <hr />}</Link>
                 </li>
