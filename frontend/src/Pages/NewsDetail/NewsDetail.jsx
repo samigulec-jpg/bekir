@@ -1,22 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import './NewsDetail.css';
 import likeIcon from '../../Components/Assets/like.png';
 import favIcon from '../../Components/Assets/fav.png';
 import editIcon from '../../Components/Assets/edit.png';
+import deleteIcon from '../../Components/Assets/delete.png';
 import Modal from '../../Components/Modal/Modal';
 
-const NewsDetail = ({ searchData, isLoggedIn, username, setFavorites, favorites }) => {
+const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
   const { id } = useParams();
-  const newsItem = searchData.find(item => item._id === parseInt(id));
-
+  const [newsItem, setNewsItem] = useState(null);
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
-  const [isFavored, setIsFavored] = useState(favorites.some(fav => fav._id === newsItem._id));
+  const [isFavored, setIsFavored] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+  const [modalConfirmAction, setModalConfirmAction] = useState(null);
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editingCommentText, setEditingCommentText] = useState('');
+
+  useEffect(() => {
+    const fetchNewsItem = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/news/${id}`);
+        const data = response.data;
+        setNewsItem(data);
+        setIsFavored(favorites.some(fav => fav._id === data._id));
+      } catch (error) {
+        console.error('Haber yüklenemedi:', error);
+      }
+    };
+
+    fetchNewsItem();
+  }, [id, favorites]);
 
   if (!newsItem) {
     return <p>Haber bulunamadı</p>;
@@ -46,6 +64,7 @@ const NewsDetail = ({ searchData, isLoggedIn, username, setFavorites, favorites 
     if (isLoggedIn) {
       setIsLiked(!isLiked);
     } else {
+      setModalContent('Lütfen Giriş Yapınız');
       setShowModal(true);
     }
   };
@@ -59,17 +78,30 @@ const NewsDetail = ({ searchData, isLoggedIn, username, setFavorites, favorites 
       }
       setIsFavored(!isFavored);
     } else {
+      setModalContent('Lütfen Giriş Yapınız');
       setShowModal(true);
     }
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
   };
 
   const handleEditClick = (comment) => {
     setEditingCommentId(comment.id);
     setEditingCommentText(comment.text);
+  };
+
+  const handleDeleteClick = (commentId) => {
+    setModalContent('Yorumu Silmek İstiyor Musunuz?');
+    setModalConfirmAction(() => () => handleConfirmDelete(commentId));
+    setShowModal(true);
+  };
+
+  const handleConfirmDelete = (commentId) => {
+    setComments(comments.filter(comment => comment.id !== commentId));
+    setShowModal(false);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setModalConfirmAction(null);
   };
 
   return (
@@ -97,8 +129,8 @@ const NewsDetail = ({ searchData, isLoggedIn, username, setFavorites, favorites 
         </div>
       </div>
 
-      <Modal show={showModal} handleClose={handleCloseModal}>
-        Lütfen Giriş Yapınız
+      <Modal show={showModal} handleClose={handleCloseModal} handleConfirm={modalConfirmAction}>
+        {modalContent}
       </Modal>
 
       <div className="comments-section">
@@ -124,12 +156,20 @@ const NewsDetail = ({ searchData, isLoggedIn, username, setFavorites, favorites 
                 <p><strong>{comment.username}</strong></p>
                 <p>{comment.text}</p>
                 {comment.username === username && (
-                  <img
-                    src={editIcon}
-                    alt="Edit"
-                    className="edit-icon"
-                    onClick={() => handleEditClick(comment)}
-                  />
+                  <div className="comment-actions">
+                    <img
+                      src={editIcon}
+                      alt="Edit"
+                      className="edit-icon"
+                      onClick={() => handleEditClick(comment)}
+                    />
+                    <img
+                      src={deleteIcon}
+                      alt="Delete"
+                      className="delete-icon"
+                      onClick={() => handleDeleteClick(comment.id)}
+                    />
+                  </div>
                 )}
               </div>
             ))

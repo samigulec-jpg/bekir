@@ -1,42 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import haberImage from '../../Components/Assets/Haber.jpeg'; // doğru dosya yolu
 import './SearchResults.css';
 
 const SearchResults = ({ searchData }) => {
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get('query');
   const [results, setResults] = useState([]);
+  const query = new URLSearchParams(location.search).get('query');
 
   useEffect(() => {
-    if (Array.isArray(searchData)) { // searchData'nın bir dizi olduğunu doğruluyoruz
+    if (searchData.length > 0 && query) {
       const filteredResults = searchData.filter(item =>
         item.title.toLowerCase().includes(query.toLowerCase()) ||
         item.content.toLowerCase().includes(query.toLowerCase())
       );
       setResults(filteredResults);
     }
-  }, [query, searchData]);
+  }, [searchData, query]);
 
   return (
     <div className="search-results">
-      <h1>Arama Sonuçları</h1>
-      {results.length > 0 ? (
-        <div className="news-list">
-          {results.map(result => (
-            <div key={result._id} className="news-item">
-              <img src={haberImage} alt="Haber Görseli" className="news-image" />
-              <div className="news-content">
-                <h3>{result.title}</h3>
-                <p>{result.content}</p>
-                <p className="news-date">{result.date}</p>
+      <h2>Arama Sonuçları</h2>
+      <div className="results-list">
+        {results.length > 0 ? (
+          results.map(item => (
+            <div key={item._id} className="result-item">
+              <img src={process.env.PUBLIC_URL + item.image} alt="Haber Görseli" className="result-image" />
+              <div className="result-content">
+                <h3>{item.title}</h3>
+                <p>{item.content}</p>
+                <p className="result-date">{item.date}</p>
               </div>
             </div>
-          ))}
-        </div>
-      ) : (
-        <p>Sonuç bulunamadı.</p>
-      )}
+          ))
+        ) : (
+          <p>Sonuç Bulunamadı</p>
+        )}
+      </div>
     </div>
   );
 };

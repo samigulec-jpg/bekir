@@ -1,77 +1,90 @@
 .home {
+  text-align: center;
   padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: left;
   font-family: Arial, sans-serif;
 }
 
 .today-news-section {
   position: relative;
-  border: 2px solid #444;
+  border: 2px solid #444; /* Çerçeveyi daha belirgin yapmak için kalınlık artırıldı */
   padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  text-align: left;
+  border-radius: 10px; /* Köşeleri biraz daha yuvarlak yapmak için */
+  margin-bottom: 30px; /* Alt kısımdan ayırmak için boşluk */
+  text-align: left; /* Çerçeve içeriğini sola hizalamak için */
+  width: 100%; /* Bugün Ne Oldu? kutusunu küçültmek için genişlik ayarı */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .today-news-section h1 {
   position: absolute;
-  top: -10px;
-  left: 20px;
-  background: white;
+  top: -10px; /* Yazıyı çerçevenin içinde sol üst köşeye yerleştirmek için */
+  left: 20px; /* Yazıyı çerçevenin içinde sol üst köşeye yerleştirmek için */
+  background: white; /* Arka planı beyaz yaparak çerçeve içinde belirginlik sağlanır */
   padding: 0 10px;
   margin: 0;
-  font-size: 24px;
+  font-size: 24px; /* Yazı boyutunu ayarlamak için */
 }
 
-.section {
-  margin-bottom: 40px;
+.today-news {
+  display: flex;
+  justify-content: space-between; /* Öğeleri yatayda yay */
+  gap: 20px; /* Boşlukları artırmak için gap değeri artırıldı */
 }
 
-.section h2 {
-  font-size: 20px;
-  margin-bottom: 20px;
+.normal-news-section {
+  margin-top: 30px;
 }
 
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+.normal-news-section h2 {
+  text-align: left; /* Haberler başlığını sola hizala */
+  
+}
+
+.news-list {
+  display: flex;
+  flex-wrap: wrap; /* Öğeleri saracak şekilde düzenle */
+  justify-content: center; /* Öğeleri yatayda ortala */
   gap: 20px;
 }
 
-.news-card {
+.news-item {
   border: 1px solid #ddd;
+  padding: 20px; /* Haber öğelerinin iç boşluğunu artır */
+  width: 300px; /* Haber öğelerinin genişliğini artır */
   border-radius: 5px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
   background-color: #f9f9f9;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.news-card:hover {
-  transform: scale(1.05);
-}
-
-.news-card img {
+.news-image {
   width: 100%;
   height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
-.news-card h3 {
-  font-size: 18px;
-  margin: 10px;
-  color: #555;
+.news-content {
+  width: 100%; /* İçerik genişliği tam olsun */
 }
 
-.news-card p {
-  font-size: 14px;
-  color: #666;
-  margin: 10px;
+.news-item h3 {
+  margin: 0 0 5px; /* Başlık altındaki boşluk küçültüldü */
+  font-size: 18px; /* Başlık boyutunu artır */
+  color: #555; /* Başlık rengi */
+}
+
+.news-item p {
+  margin: 0 0 5px;
+  font-size: 16px; /* İçerik boyutunu artır */
+  color: #777; /* İçerik rengi */
 }
 
 .news-date {
-  color: #aaa;
-  font-size: 12px;
-  text-align: right;
+  color: #aaa; /* Tarih rengi */
+  font-size: 14px; /* Tarih boyutunu artır */
+  text-align: right; /* Tarihi sağa hizala */
 }
