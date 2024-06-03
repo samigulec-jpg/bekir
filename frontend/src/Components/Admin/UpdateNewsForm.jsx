@@ -1,53 +1,59 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './UpdateNewsForm.css';
 
-const UpdateNewsForm = () => {
+const UpdateNewsForm = ({ onSubmit }) => {
     const { id } = useParams();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [source, setSource] = useState('');
     const [category, setCategory] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
+    const [fullContent, setFullContent] = useState('');
+    const [date, setDate] = useState('');
 
     useEffect(() => {
-        // Haber verilerini API'den çekme işlemi burada gerçekleştirilebilir
-        // Örnek olarak ID'ye göre veri çekimi
-        const exampleNews = {
-            id,
-            title: 'Örnek Haber Başlığı',
-            content: 'Örnek Haber İçeriği',
-            source: 'Örnek Haber Kaynağı',
-            category: 'siyaset',
-            image: 'example.jpg',
+        const fetchNews = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/news/${id}`);
+                const news = response.data;
+                setTitle(news.title);
+                setContent(news.content);
+                setSource(news.source);
+                setCategory(news.category);
+                setFullContent(news.fullContent);
+                setDate(news.date);
+                setImage(news.image);
+            } catch (err) {
+                console.error('Haber alınırken bir hata oluştu:', err);
+            }
         };
-        setTitle(exampleNews.title);
-        setContent(exampleNews.content);
-        setSource(exampleNews.source);
-        setCategory(exampleNews.category);
-        setImage(exampleNews.image);
+
+        fetchNews();
     }, [id]);
+
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Haber güncelleme işlemleri burada gerçekleştirilebilir
-        console.log('Güncellenen haber id:', id);
-        console.log('Haber başlığı:', title);
-        console.log('Haber içeriği:', content);
-        console.log('Haber kaynağı:', source);
-        console.log('Kategori:', category);
-        console.log('Fotoğraf:', image);
-        // Formu sıfırla
-        setTitle('');
-        setContent('');
-        setSource('');
-        setCategory('');
-        setImage('');
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('source', source);
+        formData.append('category', category);
+        formData.append('image', image);
+        formData.append('fullContent', fullContent);
+        formData.append('date', date);
+
+        onSubmit(formData);
     };
 
     return (
         <div className="update-news-form-container">
-            <h1>Haber Güncelle</h1>
+            <h1>Haberi Güncelle</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Haber Başlığı:</label>
@@ -89,12 +95,28 @@ const UpdateNewsForm = () => {
                     </select>
                 </div>
                 <div>
+                    <label>Detaylı Haber İçeriği:</label>
+                    <textarea 
+                        value={fullContent} 
+                        onChange={(e) => setFullContent(e.target.value)} 
+                        required 
+                    />
+                </div>
+                <div>
+                    <label>Haber Tarihi:</label>
+                    <input 
+                        type="text" 
+                        value={date} 
+                        onChange={(e) => setDate(e.target.value)} 
+                        required 
+                    />
+                </div>
+                <div>
                     <label>Fotoğraf:</label>
                     <input 
                         type="file" 
                         accept="image/*" 
-                        onChange={(e) => setImage(e.target.value)} 
-                        required 
+                        onChange={handleImageChange} 
                     />
                 </div>
                 <button type="submit">Haberi Güncelle</button>

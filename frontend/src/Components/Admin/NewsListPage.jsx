@@ -1,31 +1,38 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './NewsListPage.css';
 
 const NewsListPage = () => {
-    const [news, setNews] = useState([]);
+    const [newsList, setNewsList] = useState([]);
 
     useEffect(() => {
-        // Haberleri API'den çekme işlemleri burada gerçekleştirilebilir
-        // Örnek haber verisi
-        const exampleNews = [
-            { id: 1, title: 'Haber Başlığı 1', content: 'Haber İçeriği 1' },
-            { id: 2, title: 'Haber Başlığı 2', content: 'Haber İçeriği 2' },
-            { id: 3, title: 'Haber Başlığı 3', content: 'Haber İçeriği 3' },
-        ];
-        setNews(exampleNews);
+        const fetchNews = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/news/all');
+                setNewsList(response.data);
+            } catch (err) {
+                console.error('Haberler alınırken bir hata oluştu:', err);
+            }
+        };
+
+        fetchNews();
     }, []);
 
     return (
         <div className="news-list-container">
-            <h1>Haber Listesi</h1>
-            <ul>
-                {news.map((item) => (
-                    <li key={item.id}>
-                        <h2>{item.title}</h2>
-                        <p>{item.content}</p>
-                    </li>
+            <h1>Haberler Listesi</h1>
+            <div className="news-list">
+                {newsList.map(news => (
+                    <div className="news-item" key={news._id}>
+                        <img src={`http://localhost:5000/${news.image}`} alt="Haber Görseli" />
+                        <div className="news-content">
+                            <h2>{news.title}</h2>
+                            <p>{news.content}</p>
+                            <p className="news-date">{news.date}</p>
+                        </div>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

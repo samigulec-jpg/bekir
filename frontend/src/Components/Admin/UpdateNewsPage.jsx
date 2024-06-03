@@ -1,43 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './UpdateNewsPage.css';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import UpdateNewsForm from './UpdateNewsForm';
 
 const UpdateNewsPage = () => {
-    const [news, setNews] = useState([]);
     const navigate = useNavigate();
+    const { id } = useParams();
 
-    useEffect(() => {
-        // Haberleri API'den çekme işlemleri burada gerçekleştirilebilir
-        // Örnek haber verisi
-        const exampleNews = [
-            { id: 1, title: 'Haber Başlığı 1', content: 'Haber İçeriği 1' },
-            { id: 2, title: 'Haber Başlığı 2', content: 'Haber İçeriği 2' },
-            { id: 3, title: 'Haber Başlığı 3', content: 'Haber İçeriği 3' },
-        ];
-        setNews(exampleNews);
-    }, []);
-
-    const handleUpdate = (id) => {
-        // Haber güncelleme sayfasına yönlendirme
-        navigate(`/update-news/${id}`);
+    const handleUpdate = async (formData) => {
+        try {
+            const response = await axios.put(`http://localhost:5000/api/news/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Haber güncellendi:', response.data);
+            navigate('/news-list'); // Güncelleme sonrası listeleme sayfasına yönlendirme
+        } catch (error) {
+            console.error('Haber güncelleme hatası:', error.response ? error.response.data : error.message);
+        }
     };
 
     return (
-        <div className="update-news-container">
-            <h1>Haber Güncelle</h1>
-            <ul>
-                {news.map((item) => (
-                    <li key={item.id}>
-                        <div className="news-item">
-                            <div className="news-content">
-                                <h2>{item.title}</h2>
-                                <p>{item.content}</p>
-                            </div>
-                            <button className="update-button" onClick={() => handleUpdate(item.id)}>Güncelle</button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+        <div>
+            <UpdateNewsForm onSubmit={handleUpdate} />
         </div>
     );
 };

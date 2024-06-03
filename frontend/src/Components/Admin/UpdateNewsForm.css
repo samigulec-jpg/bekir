@@ -1,18 +1,26 @@
 .update-news-form-container {
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 800px;
+    margin: 50px auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .update-news-form-container h1 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #333;
 }
 
 .update-news-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.update-news-form-container form div {
     display: flex;
     flex-direction: column;
 }
@@ -20,30 +28,35 @@
 .update-news-form-container label {
     margin-bottom: 5px;
     font-weight: bold;
+    color: #666;
 }
 
 .update-news-form-container input[type="text"],
 .update-news-form-container input[type="file"],
 .update-news-form-container textarea,
 .update-news-form-container select {
-    margin-bottom: 15px;
     padding: 10px;
+    font-size: 1em;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     width: 100%;
-    box-sizing: border-box;
+}
+
+.update-news-form-container textarea {
+    resize: vertical;
 }
 
 .update-news-form-container button {
-    padding: 10px;
-    background-color: #f03709;
-    color: white;
+    padding: 15px 20px;
+    background-color: #e81616;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 1.2em;
     cursor: pointer;
-    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .update-news-form-container button:hover {
-    background-color: #681407;
+    background-color: #6e0c0c;
 }

@@ -1,31 +1,69 @@
 .news-list-container {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 50px auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .news-list-container h1 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #333;
 }
 
-.news-list-container ul {
-    list-style-type: none;
-    padding: 0;
+.news-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.news-list-container li {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
+.news-item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: calc(33.333% - 20px); /* Üç sütun düzeni */
+    display: flex;
+    flex-direction: column;
 }
 
-.news-list-container li h2 {
-    margin: 0 0 10px 0;
+.news-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.news-list-container li p {
-    margin: 0;
+.news-item img {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Görselin maksimum yüksekliğini ayarlayın */
+    object-fit: cover;
+}
+
+.news-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.news-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.news-content p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.news-content .news-date {
+    font-size: 0.9em;
+    color: #999;
 }

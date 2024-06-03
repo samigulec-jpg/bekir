@@ -1,56 +1,58 @@
 .delete-news-container {
-    max-width: 800px;
-    margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.delete-news-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.delete-news-container ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.delete-news-container li {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .news-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-.news-content {
-    flex-grow: 1;
+.news-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
 }
 
-.news-content h2 {
-    margin: 0 0 10px 0;
+.news-item h2 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
 }
 
-.news-content p {
-    margin: 0;
+.news-item p {
+    margin: 0 0 5px;
+    color: #555;
 }
 
-.delete-button {
-    padding: 10px;
-    background-color: #ff4d4d;
-    color: white;
+.news-date {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.news-item button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #e60000;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    transition: background 0.3s;
 }
 
-.delete-button:hover {
-    background-color: #e60000;
+.news-item button:hover {
+    background: #cc0000;
 }
-

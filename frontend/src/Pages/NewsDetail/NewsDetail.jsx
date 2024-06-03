@@ -107,7 +107,7 @@ const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
   return (
     <div className="news-detail">
       <h1>{newsItem.title}</h1>
-      <img src={newsItem.image} alt="Haber Görseli" className="news-detail-image" />
+      <img src={`http://localhost:5000/${newsItem.image}`} alt="Haber Görseli" className="news-detail-image" />
       <p>{newsItem.fullContent}</p>
 
       <div className="interactions">

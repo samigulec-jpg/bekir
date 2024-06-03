@@ -11,7 +11,7 @@ const Favorites = ({ favorites }) => {
           favorites.map((newsItem) => (
             <div key={newsItem._id} className="news-card">
               <Link to={`/news/${newsItem._id}`}>
-                <img src={newsItem.image} alt={newsItem.title} className="news-image" />
+                <img src={`http://localhost:5000/${newsItem.image}`} alt={newsItem.title} className="news-image" />
                 <h2>{newsItem.title}</h2>
                 <p>{newsItem.content}</p>
               </Link>
