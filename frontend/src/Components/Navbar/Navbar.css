@@ -1,33 +1,32 @@
-
-.nav-menu a, .nav-login a, .nav-register a {
+.nav-menu a, .nav-login a, .nav-register a, .nav-auth a {
     text-decoration: none;
 }
 
-.nav-login button:hover, .nav-register button:hover {
+.nav-login button:hover, .nav-register button:hover, .nav-auth button:hover {
     background-color: lightgrey; /* You can use any shade of grey you prefer */
 }
 
-
-.navbar{
+.navbar {
     display: flex;
     justify-content: space-around;
     padding: 5px;
     box-shadow: 0 1px 3px -2px black;
+    align-items: center; /* Navbar içindeki öğelerin dikeyde ortalanması için */
 }
 
-.nav-logo{
+.nav-logo {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.nav-logo p{
+.nav-logo p {
     color: #171717;
     font-size: 38px;
     font-weight: 600;
 }
 
-.nav-menu{
+.nav-menu {
     display: flex;
     align-items: center;
     list-style: none;
@@ -37,7 +36,7 @@
     margin-left: 200px;
 }
 
-.nav-menu li{
+.nav-menu li {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,7 +45,7 @@
     cursor: pointer;
 }
 
-.nav-menu hr{
+.nav-menu hr {
     border: none;
     width: 80%;
     height: 3px;
@@ -54,49 +53,94 @@
     background: #FF4141;
 }
 
-.nav-login{
+.nav-auth {
     display: flex;
     align-items: center;
-    gap: 90px;
-    margin-left: 200px;
+    gap: 20px;
 }
 
-.nav-login button{
-    width: 130px;
-    height: 45px;
+.nav-auth button {
+    width: 100px;
+    height: 40px;
     outline: none;
     border: 1px solid #7a7a7a;
     border-radius: 75px;
     color: #515151;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     background: white;
     cursor: pointer;
 }
 
-.nav-login button:active{
+.nav-auth button:active {
     background: #f3f3f3;
 }
 
-.nav-register{
+.nav-search {
     display: flex;
     align-items: center;
-    gap: 45px;
+    gap: 10px;
 }
 
-.nav-register button{
-    width: 130px;
-    height: 45px;
+.nav-search input {
+    width: 200px;
+    height: 30px;
+    padding: 5px 10px;
+    border: 1px solid #7a7a7a;
+    border-radius: 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.nav-search button {
+    height: 30px;
+    padding: 0 15px;
+    border: none;
+    border-radius: 15px;
+    background-color: #FF4141;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.nav-search button:hover {
+    background-color: #e03b3b;
+}
+
+.nav-search button:active {
+    background-color: #c63434;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.logout-button {
+    width: 100px;
+    height: 40px;
     outline: none;
     border: 1px solid #7a7a7a;
     border-radius: 75px;
     color: #515151;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     background: white;
     cursor: pointer;
 }
 
-.nav-register button:active{
+.logout-button:hover {
+    background-color: lightgrey;
+}
+
+.logout-button:active {
     background: #f3f3f3;
 }

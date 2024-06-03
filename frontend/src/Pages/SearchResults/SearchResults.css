@@ -1,0 +1,52 @@
+.search-results {
+  padding: 20px;
+  text-align: center;
+}
+
+.news-list {
+  display: flex;
+  flex-wrap: wrap; /* Öğeleri saracak şekilde düzenle */
+  justify-content: center; /* Öğeleri yatayda ortala */
+  gap: 20px;
+}
+
+.news-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 250px; /* Haber öğelerinin genişliği */
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.news-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.news-content {
+  width: 100%; /* İçerik genişliği tam olsun */
+}
+
+.news-item h3 {
+  margin: 0 0 5px;
+  font-size: 16px; /* Başlık boyutunu ayarla */
+  color: #555; /* Başlık rengi */
+}
+
+.news-item p {
+  margin: 0 0 5px;
+  font-size: 14px; /* İçerik boyutunu ayarla */
+  color: #777; /* İçerik rengi */
+}
+
+.news-date {
+  color: #aaa; /* Tarih rengi */
+  font-size: 12px; /* Tarih boyutunu ayarla */
+  text-align: right; /* Tarihi sağa hizala */
+}

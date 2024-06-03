@@ -1,0 +1,145 @@
+.news-detail {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0; /* Ortalamak yerine kenar boşluklarını kaldırmak */
+  text-align: left; /* İçeriği sola hizalamak için */
+}
+
+.news-detail h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.news-detail-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.news-detail p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.interactions {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.interaction-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.icon.liked {
+  filter: invert(39%) sepia(81%) saturate(741%) hue-rotate(168deg) brightness(97%) contrast(94%);
+}
+
+.icon.favored {
+  filter: invert(26%) sepia(97%) saturate(5218%) hue-rotate(346deg) brightness(92%) contrast(89%);
+}
+
+.interaction-item p {
+  margin: 5px 0 0 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.comments-section {
+  margin-top: 40px;
+  text-align: left; /* Yorumlar bölümünü sola hizalamak için */
+}
+
+.comments-section h2 {
+  margin-bottom: 20px;
+}
+
+.comment-form {
+  margin-bottom: 20px;
+  text-align: left; /* Yorum formunu sola hizalamak için */
+}
+
+.comment-form textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: none;
+}
+
+.comment-form button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #FF4141;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #e03b3b;
+}
+
+.comment-form button:active {
+  background-color: #c63434;
+}
+
+.comments-list {
+  margin-top: 20px;
+  padding: 20px; /* Çerçevenin içeriği için boşluk */
+  border: 1px solid #ddd; /* Çerçeve kenarları */
+  border-radius: 5px; /* Çerçeve köşeleri yuvarlama */
+  background-color: #f9f9f9; /* Çerçeve arka plan rengi */
+  text-align: left; /* Yorumları sola hizalamak için */
+}
+
+.comment {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  position: relative;
+}
+
+.comment:last-child {
+  border-bottom: none; /* Son yorumun altındaki çizgiyi kaldırma */
+}
+
+.comment p {
+  margin: 0;
+}
+
+.edit-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.login-message {
+  font-size: 18px;
+  color: #d9534f; /* Belirgin bir renk seçildi */
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.alert-message {
+  font-size: 16px;
+  color: #d9534f; /* Belirgin bir renk seçildi */
+  font-weight: bold;
+  margin-bottom: 20px;
+}

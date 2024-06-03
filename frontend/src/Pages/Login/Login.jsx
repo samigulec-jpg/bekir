@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
+const Login = ({ setIsLoggedIn, setUsername }) => {
+  const [username, setInputUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
@@ -14,6 +14,8 @@ const Login = () => {
 
     // Örneğin, kimlik doğrulama API'sine istek gönderin
     // Başarılı bir girişten sonra anasayfaya yönlendirin
+    setIsLoggedIn(true);
+    setUsername(username);
     navigate('/');
   };
 
@@ -27,7 +29,7 @@ const Login = () => {
             type="text"
             id="username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setInputUsername(e.target.value)}
             required
           />
         </div>
