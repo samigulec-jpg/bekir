@@ -21,15 +21,10 @@ const AddNewsPage = () => {
     formData.append('title', title);
     formData.append('content', content);
     formData.append('source', source);
-    formData.append('category', category);
+    formData.append('category', category); // Kategori ekle
     formData.append('image', image);
     formData.append('fullContent', fullContent);
     formData.append('date', date);
-
-    // formData içeriğini kontrol edelim
-    for (const [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
 
     try {
       const response = await axios.post('http://localhost:5000/api/news', formData, {
@@ -42,7 +37,7 @@ const AddNewsPage = () => {
       setTitle('');
       setContent('');
       setSource('');
-      setCategory('');
+      setCategory(''); // Kategori sıfırla
       setImage(null);
       setFullContent('');
       setDate('');

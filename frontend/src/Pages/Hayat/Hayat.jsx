@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './HaberSayfasi.css';
-import axios from 'axios';
 
 const Hayat = () => {
   const [news, setNews] = useState([]);
@@ -20,7 +20,7 @@ const Hayat = () => {
   }, []);
 
   return (
-    <div className="category">
+    <div className="category-page">
       <h1>Hayat Haberleri</h1>
       <div className="news-grid">
         {news.map((item) => (
