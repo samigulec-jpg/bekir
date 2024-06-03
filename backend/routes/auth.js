@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
       expiresIn: '1h',
     });
 
-    res.json({ token, userId: user._id }); // Kullanıcı ID'sini de döndür
+    res.json({ token, userId: user._id });
   } catch (error) {
     res.status(500).json({ message: 'Sunucu hatası' });
   }
@@ -70,12 +70,11 @@ router.put('/update', async (req, res) => {
 
     res.json({ message: 'Kullanıcı bilgileri güncellendi' });
   } catch (error) {
-    console.error('Update error:', error); // Daha ayrıntılı hata mesajı
+    console.error('Update error:', error);
     res.status(500).json({ message: 'Sunucu hatası: ' + error.message });
   }
 });
 
-// Hesap silme rotası
 router.delete('/delete', async (req, res) => {
   const { userId } = req.body;
 
@@ -92,4 +91,24 @@ router.delete('/delete', async (req, res) => {
   }
 });
 
-module.exports = router;
+// auth middleware
+const auth = async (req, res, next) => {
+  try {
+    const token = req.header('Authorization').replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findOne({ _id: decoded.id });
+
+    if (!user) {
+      throw new Error();
+    }
+
+    req.token = token;
+    req.user = user;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: 'Lütfen kimlik doğrulaması yapın.' });
+  }
+};
+
+module.exports = { router, auth };
+  

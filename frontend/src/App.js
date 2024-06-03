@@ -19,12 +19,14 @@ function App() {
   const [favorites, setFavorites] = useState([]); // Favori haberler
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem('username');
-    const storedUserId = localStorage.getItem('userId');
-    if (storedUsername && storedUserId) {
-      setUsername(storedUsername);
-      setIsLoggedIn(true);
-    }
+    // Uygulama başlatıldığında localStorage'ı temizle
+    localStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('token');
+
+    // Kullanıcı bilgilerini sıfırla
+    setUsername('');
+    setIsLoggedIn(false);
   }, []);
 
   return (

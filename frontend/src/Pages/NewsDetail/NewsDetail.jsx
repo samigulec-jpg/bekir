@@ -4,6 +4,7 @@ import axios from 'axios';
 import './NewsDetail.css';
 import likeIcon from '../../Components/Assets/like.png';
 import favIcon from '../../Components/Assets/fav.png';
+import deleteFavIcon from '../../Components/Assets/deletefav.png';
 import editIcon from '../../Components/Assets/edit.png';
 import deleteIcon from '../../Components/Assets/delete.png';
 import Modal from '../../Components/Modal/Modal';
@@ -27,9 +28,11 @@ const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
         const response = await axios.get(`http://localhost:5000/api/news/${id}`);
         const data = response.data;
         setNewsItem(data);
-        setIsFavored(favorites.some(fav => fav._id === data._id));
+        setIsFavored(favorites.some(fav => fav.newsId && fav.newsId._id === data._id));
+        const commentsResponse = await axios.get(`http://localhost:5000/api/comments/${id}`);
+        setComments(commentsResponse.data);
       } catch (error) {
-        console.error('Haber yüklenemedi:', error);
+        console.error('Haber veya yorumlar yüklenemedi:', error);
       }
     };
 
@@ -40,23 +43,49 @@ const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
     return <p>Haber bulunamadı</p>;
   }
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setModalContent('Lütfen giriş yapınız.');
+      setShowModal(true);
+      return;
+    }
     if (editingCommentId) {
-      const updatedComments = comments.map(comment => 
-        comment.id === editingCommentId ? { ...comment, text: editingCommentText } : comment
-      );
-      setComments(updatedComments);
-      setEditingCommentId(null);
-      setEditingCommentText('');
+      try {
+        const response = await axios.patch(`http://localhost:5000/api/comments/${editingCommentId}`, {
+          text: editingCommentText
+        }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const updatedComment = response.data;
+        const updatedComments = comments.map(comment => 
+          comment._id === updatedComment._id ? updatedComment : comment
+        );
+        setComments(updatedComments);
+        setEditingCommentId(null);
+        setEditingCommentText('');
+      } catch (error) {
+        console.error('Yorum güncellenemedi:', error);
+        setModalContent('Yorum güncellenemedi. Lütfen tekrar deneyin.');
+        setShowModal(true);
+      }
     } else {
-      const newComment = {
-        id: comments.length + 1,
-        text: commentText,
-        username: username,
-      };
-      setComments([...comments, newComment]);
-      setCommentText('');
+      try {
+        const response = await axios.post('http://localhost:5000/api/comments', {
+          text: commentText,
+          postId: id
+        }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const newComment = response.data;
+        setComments([...comments, newComment]);
+        setCommentText('');
+      } catch (error) {
+        console.error('Yorum eklenemedi:', error);
+        setModalContent('Yorum eklenemedi. Lütfen tekrar deneyin.');
+        setShowModal(true);
+      }
     }
   };
 
@@ -69,22 +98,62 @@ const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
     }
   };
 
-  const handleFavClick = () => {
+  const handleFavClick = async () => {
     if (isLoggedIn) {
-      if (isFavored) {
-        setFavorites(favorites.filter(fav => fav._id !== newsItem._id));
-      } else {
-        setFavorites([...favorites, newsItem]);
+      const token = localStorage.getItem('token');
+      if (favorites.some(fav => fav.newsId._id === newsItem._id)) {
+        setModalContent('Haber Zaten Favorilerde');
+        setShowModal(true);
+        return;
       }
-      setIsFavored(!isFavored);
+      try {
+        const response = await axios.post('http://localhost:5000/api/favorites', {
+          newsId: newsItem._id
+        }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setFavorites([...favorites, response.data]);
+        setIsFavored(true);
+        setModalContent('Haber favorilere eklendi');
+        setShowModal(true);
+      } catch (error) {
+        console.error('Favori eklenemedi:', error);
+        setModalContent('Favori eklenemedi. Lütfen tekrar deneyin.');
+        setShowModal(true);
+      }
     } else {
       setModalContent('Lütfen Giriş Yapınız');
       setShowModal(true);
     }
   };
 
+  const handleRemoveFavClick = async () => {
+    if (isLoggedIn) {
+      const token = localStorage.getItem('token');
+      try {
+         await axios.post('http://localhost:5000/api/favorites/remove', {
+          newsId: newsItem._id
+        }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setFavorites(favorites.filter(fav => fav.newsId._id !== newsItem._id));
+        setIsFavored(false);
+        setModalContent('Haber favorilerden kaldırıldı');
+        setShowModal(true);
+      } catch (error) {
+        console.error('Favori kaldırılamadı:', error);
+        setModalContent('Favori kaldırılamadı. Lütfen tekrar deneyin.');
+        setShowModal(true);
+      }
+    } else {
+      setModalContent('Lütfen Giriş Yapınız');
+      setShowModal(true);
+    }
+  };
+  
+
   const handleEditClick = (comment) => {
-    setEditingCommentId(comment.id);
+    setEditingCommentId(comment._id);
     setEditingCommentText(comment.text);
   };
 
@@ -94,9 +163,28 @@ const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
     setShowModal(true);
   };
 
-  const handleConfirmDelete = (commentId) => {
-    setComments(comments.filter(comment => comment.id !== commentId));
-    setShowModal(false);
+  const handleConfirmDelete = async (commentId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setModalContent('Lütfen giriş yapınız.');
+      setShowModal(true);
+      return;
+    }
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/comments/${commentId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.status === 200) {
+        setComments(comments.filter(comment => comment._id !== commentId));
+        setShowModal(false);
+      } else {
+        throw new Error('Silme işlemi başarısız oldu');
+      }
+    } catch (error) {
+      console.error('Yorum silinemedi:', error);
+      setModalContent('Yorum silinemedi. Lütfen tekrar deneyin.');
+      setShowModal(true);
+    }
   };
 
   const handleCloseModal = () => {
@@ -127,6 +215,14 @@ const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
           />
           <p>Fav</p>
         </div>
+        <div className="interaction-item" onClick={handleRemoveFavClick}>   
+          <img
+            src={deleteFavIcon}
+            alt="Remove Favorite"
+            className="icon"
+          />
+          <p>Remove Fav</p>
+        </div>
       </div>
 
       <Modal show={showModal} handleClose={handleCloseModal} handleConfirm={modalConfirmAction}>
@@ -152,10 +248,10 @@ const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
         <div className="comments-list">
           {comments.length > 0 ? (
             comments.map((comment) => (
-              <div key={comment.id} className="comment">
-                <p><strong>{comment.username}</strong></p>
+              <div key={comment._id} className="comment">
+                <p><strong>{comment.userId.username}</strong></p>
                 <p>{comment.text}</p>
-                {comment.username === username && (
+                {comment.userId.username === username && (
                   <div className="comment-actions">
                     <img
                       src={editIcon}
@@ -167,7 +263,7 @@ const NewsDetail = ({ isLoggedIn, username, setFavorites, favorites }) => {
                       src={deleteIcon}
                       alt="Delete"
                       className="delete-icon"
-                      onClick={() => handleDeleteClick(comment.id)}
+                      onClick={() => handleDeleteClick(comment._id)}
                     />
                   </div>
                 )}

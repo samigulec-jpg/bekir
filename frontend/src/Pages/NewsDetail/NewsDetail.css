@@ -43,17 +43,22 @@
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
+
+.icon.favored {
+  filter: hue-rotate(-50deg) saturate(5); /* Butonu kırmızı yapmak için */
+}
+
+
 
 .icon.liked {
   filter: invert(39%) sepia(81%) saturate(741%) hue-rotate(168deg) brightness(97%) contrast(94%);
 }
 
-.icon.favored {
-  filter: invert(26%) sepia(97%) saturate(5218%) hue-rotate(346deg) brightness(92%) contrast(89%);
-}
+
 
 .interaction-item p {
   margin: 5px 0 0 0;
