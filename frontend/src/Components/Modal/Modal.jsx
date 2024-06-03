@@ -1,7 +1,7 @@
 import React from 'react';
 import './Modal.css';
 
-const Modal = ({ show, handleClose, children }) => {
+const Modal = ({ show, handleClose, handleConfirm, children }) => {
   return (
     <div className={`modal ${show ? 'show' : ''}`} onClick={handleClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -12,7 +12,10 @@ const Modal = ({ show, handleClose, children }) => {
           {children}
         </div>
         <div className="modal-footer">
-          <button onClick={handleClose} className="button">Kapat</button>
+          <button onClick={handleClose} className="button">Hayır</button>
+          {handleConfirm && (
+            <button onClick={handleConfirm} className="button confirm">Evet</button>
+          )}
         </div>
       </div>
     </div>
