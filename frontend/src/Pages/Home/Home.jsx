@@ -32,7 +32,7 @@ const Home = ({ setSearchData }) => {
           {todayNews.map((item) => (
             <Link key={item._id} to={`/news/${item._id}`}>
               <div className="news-card">
-                <img src={process.env.PUBLIC_URL + item.image} alt="Haber Görseli" />
+                <img src={`http://localhost:5000/${item.image}`} alt="Haber Görseli" />
                 <div className="news-content">
                   <h2>{item.title}</h2>
                   <p>{item.content}</p>
@@ -49,7 +49,7 @@ const Home = ({ setSearchData }) => {
           {normalNews.map((item) => (
             <Link key={item._id} to={`/news/${item._id}`}>
               <div className="news-card">
-                <img src={process.env.PUBLIC_URL + item.image} alt="Haber Görseli" />
+                <img src={`http://localhost:5000/${item.image}`} alt="Haber Görseli" />
                 <div className="news-content">
                   <h2>{item.title}</h2>
                   <p>{item.content}</p>

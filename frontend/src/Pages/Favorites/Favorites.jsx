@@ -38,15 +38,14 @@ const Favorites = () => {
     <div className="favorites">
       <h2>Favori Haberler</h2>
       <div className="news-grid">
-        {favoriteNews.map((fav, index) => (
-          <Link key={fav.newsId._id || index} to={`/news/${fav.newsId._id}`}>
-            <div className="news-card">
-              <img src={fav.newsId.image} alt="Haber Görseli" />
-              <div className="news-content">
-                <h2>{fav.newsId.title}</h2>
-                <p>{fav.newsId.content}</p>
-                <p className="news-date">{fav.newsId.date}</p>
-              </div>
+        {favorites.length > 0 ? (
+          favorites.map((newsItem) => (
+            <div key={newsItem._id} className="news-card">
+              <Link to={`/news/${newsItem._id}`}>
+                <img src={newsItem.image} alt={newsItem.title} className="news-image" />
+                <h2>{newsItem.title}</h2>
+                <p>{newsItem.content}</p>
+              </Link>
             </div>
           </Link>
         ))}
