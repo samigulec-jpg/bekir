@@ -11,7 +11,6 @@ const Navbar = ({ setSearchData, isLoggedIn, setIsLoggedIn, username, favorites 
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Kullanıcı adını kontrol et ve admin ise isAdmin state'ini true olarak ayarla
         if (username === "admin") {
             setIsAdmin(true);
         } else {

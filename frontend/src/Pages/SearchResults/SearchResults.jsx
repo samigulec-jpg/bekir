@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import './SearchResults.css';
 
 const SearchResults = ({ searchData }) => {
@@ -20,16 +20,18 @@ const SearchResults = ({ searchData }) => {
   return (
     <div className="search-results">
       <h2>Arama Sonuçları</h2>
-      <div className="results-list">
+      <div className="news-list">
         {results.length > 0 ? (
           results.map(item => (
-            <div key={item._id} className="result-item">
-              <img src={process.env.PUBLIC_URL + item.image} alt="Haber Görseli" className="result-image" />
-              <div className="result-content">
-                <h3>{item.title}</h3>
-                <p>{item.content}</p>
-                <p className="result-date">{item.date}</p>
-              </div>
+            <div key={item._id} className="news-item">
+              <Link to={`/news/${item._id}`}>
+                <img src={`http://localhost:5000/${item.image}`} alt="Haber Görseli" className="news-image" />
+                <div className="news-content">
+                  <h3>{item.title}</h3>
+                  <p>{item.content}</p>
+                  <p className="news-date">{new Date(item.date).toLocaleString()}</p>
+                </div>
+              </Link>
             </div>
           ))
         ) : (

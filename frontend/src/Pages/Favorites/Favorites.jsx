@@ -14,9 +14,9 @@ const Favorites = () => {
         const response = await axios.get('http://localhost:5000/api/favorites', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        // null değerlerini filtreleyerek sadece geçerli haberleri içeren bir liste oluştur
+        // Null değerlerini filtreleyerek sadece geçerli haberleri içeren bir liste oluştur
         const validFavorites = response.data.filter(fav => fav.newsId !== null);
-        setFavoriteNews(validFavorites);
+        setFavoriteNews(validFavorites.map(fav => fav.newsId)); // newsId alanını al
       } catch (error) {
         console.error('Favori haberler yüklenemedi:', error);
         setError('Favori haberler yüklenemedi. Lütfen tekrar deneyin.');
@@ -38,16 +38,14 @@ const Favorites = () => {
     <div className="favorites">
       <h2>Favori Haberler</h2>
       <div className="news-grid">
-        {favorites.length > 0 ? (
-          favorites.map((newsItem) => (
-            <div key={newsItem._id} className="news-card">
-              <Link to={`/news/${newsItem._id}`}>
-                <img src={newsItem.image} alt={newsItem.title} className="news-image" />
-                <h2>{newsItem.title}</h2>
-                <p>{newsItem.content}</p>
-              </Link>
-            </div>
-          </Link>
+        {favoriteNews.map((newsItem) => (
+          <div key={newsItem._id} className="news-card">
+            <Link to={`/news/${newsItem._id}`}>
+              <img src={`http://localhost:5000/${newsItem.image}`} alt={newsItem.title} className="news-image" />
+              <h2>{newsItem.title}</h2>
+              <p>{newsItem.content}</p>
+            </Link>
+          </div>
         ))}
       </div>
     </div>

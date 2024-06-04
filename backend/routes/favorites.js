@@ -26,7 +26,7 @@ router.post('/', auth, async (req, res) => {
 });
 
 // Favori haberi kaldır
-router.post('/remove', auth, async (req, res) => {
+router.delete('/remove', auth, async (req, res) => {
   const { newsId } = req.body;
   const userId = req.user._id;
 
@@ -43,8 +43,6 @@ router.post('/remove', auth, async (req, res) => {
     res.status(500).json({ message: 'Favori kaldırılamadı' });
   }
 });
-
-
 
 // Kullanıcının favori haberlerini getir
 router.get('/', auth, async (req, res) => {

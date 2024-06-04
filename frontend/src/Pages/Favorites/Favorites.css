@@ -1,19 +1,9 @@
-.home {
+/* Favorites.css */
+.favorites {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
   text-align: left;
-}
-
-.today-news-section,
-.normal-news-section {
-  margin-bottom: 40px;
-}
-
-.today-news-section h1,
-.normal-news-section h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
 }
 
 .news-grid {

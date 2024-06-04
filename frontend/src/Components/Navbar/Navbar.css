@@ -3,7 +3,7 @@
 }
 
 .nav-login button:hover, .nav-register button:hover, .nav-auth button:hover {
-    background-color: lightgrey; /* You can use any shade of grey you prefer */
+    background-color: lightgrey;
 }
 
 .navbar {
@@ -11,7 +11,7 @@
     justify-content: space-around;
     padding: 5px;
     box-shadow: 0 1px 3px -2px black;
-    align-items: center; /* Navbar içindeki öğelerin dikeyde ortalanması için */
+    align-items: center;
 }
 
 .nav-logo {
