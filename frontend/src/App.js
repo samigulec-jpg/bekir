@@ -19,7 +19,7 @@ import UpdateNewsPage from './Components/Admin/UpdateNewsPage';
 import SelectNewsPage from './Components/Admin/SelectNewsPage';
 
 function App() {
-  const [searchData, setSearchData] = useState([]);
+  const [searchData, setSearchData] = useState([]); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const [favorites, setFavorites] = useState([]);
